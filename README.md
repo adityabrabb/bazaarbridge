@@ -4,6 +4,8 @@
 
 Built for the PayPal AI Hackathon.
 
+**Live demo:** https://bazaarbridge.vercel.app/demo (demo mode: rule-based agent and a labelled mock PayPal with a "Simulate payment" button; no keys needed) · **Video:** https://youtu.be/IrV6PjmurOk (the same flow on the real PayPal sandbox with Gemini)
+
 ## The problem
 
 A two-person block-print studio in Jaipur gets enquiries from London, Berlin and New York. Each one needs a quote in a foreign currency, a shipping estimate, an invoice and a follow-up. Large exporters have a sales desk for this. Small sellers answer late, guess at exchange rates, and lose track of who has paid.
