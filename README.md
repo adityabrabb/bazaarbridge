@@ -16,7 +16,7 @@ A two-person block-print studio in Jaipur gets enquiries from London, Berlin and
 | 2 | Agent replies with a quote in GBP, USD, EUR or AUD, with shipping and delivery time | Prices are computed in code from the seller's rupee price list; the model never sets a price |
 | 3 | Buyer asks for a discount | Agent offers the seller's bulk discount and politely refuses to go below the seller's floor |
 | 4 | Buyer confirms | Agent creates a **PayPal order** (Orders v2) in the buyer's currency and posts the pay link |
-| 5 | Buyer pays | Payment is captured through PayPal; the dashboard flips to PAID live and a **PayPal invoice** (Invoicing v2) is recorded |
+| 5 | Buyer pays | Payment is captured through PayPal; the dashboard flips to PAID live and an invoice is issued: a **PayPal invoice** (Invoicing v2) when Invoicing is enabled on the account, otherwise the app's own invoice page tied to the PayPal capture ID |
 | 6 | Seller opens the evidence pack | Chat transcript, quote, invoice and PayPal payment record in one document, ready if the buyer disputes |
 | 7 | Seller asks "kis kis ka payment pending hai?" | Agent lists unpaid invoices across currencies and sends reminders with pay links |
 
@@ -88,7 +88,7 @@ The agent has eight tools: `search_catalog`, `get_quote`, `confirm_order`, `chec
 | Product | Used for |
 |---|---|
 | Orders v2 | Create an order in the buyer's currency, approval link, capture |
-| Invoicing v2 | Create and send the invoice, record the payment |
+| Invoicing v2 | Create and send the invoice, record the payment (needs Invoicing enabled on the app; the demo video uses the in-app invoice fallback) |
 | Webhooks | Signature verification; a webhook only triggers a re-check against the API |
 | Sandbox | All of the above; no real money moves |
 
