@@ -1,16 +1,11 @@
 /**
- * Four numbers the seller scans first, all in rupees: money in,
- * paid count, unpaid count, money still out. The two money tiles
- * carry a small per-currency breakdown (what buyers actually paid
- * or owe) so the exchange-rate story is visible.
+ * The strip at the top of the ledger: two rupee numbers lead
+ * (collected, still to collect). Order counts and the per-currency
+ * breakdown (what buyers actually paid or owe, so the exchange-rate
+ * story shows) sit under each number as quiet supporting text.
  */
 import { inr, money } from "@/lib/format";
 import type { CurrencyTotals, Stats } from "@/lib/types";
-
-type Tile = {
-   key: string; label: string; hindi: string; value: string;
-   sub?: string; tone: "ink" | "paper" | "red";
-};
 
 /** "£59.70 · $142.00" for one side (paid or unpaid) of the split. */
 function breakdown(rows: CurrencyTotals[], side: "paid" | "unpaid") {
@@ -20,36 +15,39 @@ function breakdown(rows: CurrencyTotals[], side: "paid" | "unpaid") {
       .join(" · ");
 }
 
-/** Builds the tile list; dashes while stats have not loaded. */
-function tilesFor(stats: Stats | null): Tile[] {
+type Lead = {
+   key: string; label: string; hindi: string; value: string; sub: string;
+};
+
+/** Builds the two leads; dashes while stats have not loaded. */
+function leadsFor(stats: Stats | null): Lead[] {
    const dash = "--";
    const rows = stats?.byCurrency ?? [];
+   const count = (n: number, word: string) => `${n} ${word}`;
    return [
-      { key: "collected", label: "Collected", hindi: "वसूली",
+      { key: "in", label: "Collected", hindi: "वसूली",
         value: stats ? inr(stats.collectedInr) : dash,
-        sub: breakdown(rows, "paid"), tone: "ink" },
-      { key: "paid", label: "Paid orders", hindi: "चुकता",
-        value: stats ? String(stats.paidCount) : dash, tone: "paper" },
-      { key: "unpaid", label: "Unpaid orders", hindi: "बाकी",
-        value: stats ? String(stats.unpaidCount) : dash, tone: "paper" },
-      { key: "stuck", label: "Still to collect", hindi: "बकाया",
+        sub: stats ? [count(stats.paidCount, "paid"),
+           breakdown(rows, "paid")].filter(Boolean).join(" · ") : "" },
+      { key: "out", label: "Still to collect", hindi: "बकाया",
         value: stats ? inr(stats.unpaidInr) : dash,
-        sub: breakdown(rows, "unpaid"), tone: "red" },
+        sub: stats ? [count(stats.unpaidCount, "unpaid"),
+           breakdown(rows, "unpaid")].filter(Boolean).join(" · ") : "" },
    ];
 }
 
-/** Renders the tiles as a responsive row. */
+/** Renders the two-number strip. */
 export function StatsTiles({ stats }: { stats: Stats | null }) {
    return (
-      <section className="tiles" aria-label="Export numbers">
-         {tilesFor(stats).map((t) => (
-            <div key={t.key} className={`tile tile--${t.tone}`}>
-               <div className="tile__label">
+      <section className="strip" aria-label="Export numbers">
+         {leadsFor(stats).map((t) => (
+            <div key={t.key} className={`strip__lead strip__lead--${t.key}`}>
+               <div className="strip__label">
                   <span>{t.label}</span>
                   <span lang="hi">{t.hindi}</span>
                </div>
-               <div className="tile__value">{t.value}</div>
-               <div className="tile__sub">{t.sub || " "}</div>
+               <div className="strip__value">{t.value}</div>
+               <div className="strip__sub">{t.sub || " "}</div>
             </div>
          ))}
       </section>

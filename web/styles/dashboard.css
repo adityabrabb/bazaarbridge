@@ -1,147 +1,178 @@
-/* Owner dashboard: tiles, orders panel, grid chips, owner chat. */
+/*
+ * Seller's ledger: one cream sheet holding the two lead numbers, the
+ * orders list and the seller chat. Borders only where they separate
+ * things; no hard shadows here (those belong to the phone and the
+ * PAID stamp). Type scale on this side: 12 / 15 / 22 / 60.
+ */
 
 .dash {
-   display: flex;
-   flex-direction: column;
-   gap: 18px;
    height: 100%;
    min-height: 0;
 }
 
-/* ---------- stat tiles ---------- */
-.tiles {
-   display: grid;
-   grid-template-columns: repeat(4, minmax(0, 1fr));
-   gap: 14px;
-}
-.tile {
-   border: var(--border);
-   box-shadow: var(--shadow-soft);
-   padding: 8px 16px 6px;
-   background: var(--white-paper);
-}
-.tile--ink { background: var(--ink); color: var(--gold); }
-.tile--red { background: var(--red); color: var(--white-paper); }
-.tile__label {
+/* ---------- the sheet ---------- */
+.sheet {
+   height: 100%;
+   min-height: 0;
    display: flex;
-   justify-content: space-between;
-   gap: 8px;
-   font-size: 12px;
-   font-weight: 700;
-   letter-spacing: 0.12em;
-   text-transform: uppercase;
-}
-.tile__sub {
-   font-size: 12px;
-   font-weight: 600;
-   min-height: 1.3em;
-   opacity: 0.85;
-   font-variant-numeric: tabular-nums;
-}
-.tile__value {
-   font-family: var(--font-display);
-   font-size: clamp(32px, 3vw, 46px);
-   line-height: 1.1;
-   margin-top: 4px;
-   font-variant-numeric: tabular-nums;
-}
-
-/* ---------- panels ---------- */
-.panel {
-   border: var(--border);
-   box-shadow: var(--shadow-hard);
+   flex-direction: column;
+   background: var(--white-paper);
+   border: 2px solid var(--ink);
+   border-radius: 10px;
    overflow: hidden;
 }
-.panel__head {
+.sheet__head {
    display: flex;
    align-items: center;
    justify-content: space-between;
    gap: 12px;
-   flex-wrap: wrap;
-   padding: 14px 16px;
-   border-bottom: var(--border);
+   padding: 14px 28px 0;
 }
-.panel__heading { font-size: 30px; }
-.panel__title {
-   font-size: 24px;
-   padding: 12px 16px 10px;
-   background: var(--ink);
-   color: var(--gold);
+.sheet .eyebrow {
+   font-family: var(--font-body);
+   color: var(--ink);
+   margin: 0;
+   font-size: 12px;
+   font-weight: 700;
+   letter-spacing: 0.16em;
+   text-transform: uppercase;
 }
-.dashactions { display: flex; gap: 10px; align-items: center; }
+.dashactions { display: flex; gap: 14px; align-items: center; white-space: nowrap; }
+.sheet .btn { box-shadow: none; min-height: 40px; padding: 6px 20px; }
+.sheet .btn:active { transform: none; }
+.quietbtn {
+   border: 0;
+   background: none;
+   padding: 6px 2px;
+   font-size: 15px;
+   font-weight: 600;
+   text-decoration: underline;
+   text-underline-offset: 3px;
+   opacity: 0.7;
+}
+.quietbtn:hover:not(:disabled) { opacity: 1; }
+.quietbtn:disabled { opacity: 0.35; cursor: not-allowed; }
 
-/* ---------- grid ---------- */
-.panel--grow {
+/* ---------- the two lead numbers ---------- */
+.strip {
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   padding: 8px 28px 18px;
+   border-bottom: 2px solid var(--ink);
+}
+.strip__lead + .strip__lead {
+   padding-left: 32px;
+   border-left: 1px solid rgba(16, 21, 58, 0.25);
+}
+.strip__label {
+   display: flex;
+   gap: 10px;
+   align-items: baseline;
+   font-size: 12px;
+   font-weight: 700;
+   letter-spacing: 0.16em;
+   text-transform: uppercase;
+}
+.strip__label span[lang] { letter-spacing: 0; font-size: 14px; opacity: 0.55; }
+.strip__value {
+   font-family: var(--font-display);
+   font-size: clamp(44px, 5.2vw, 76px);
+   line-height: 1.05;
+   font-variant-numeric: tabular-nums;
+}
+.strip__lead--out .strip__value { color: var(--red); }
+.strip__sub {
+   font-size: 15px;
+   font-variant-numeric: tabular-nums;
+   opacity: 0.7;
+   min-height: 1.4em;
+}
+
+/* ---------- orders ---------- */
+.orders {
    flex: 1;
-   min-height: 190px;
+   min-height: 120px;
    display: flex;
    flex-direction: column;
 }
-.grid { flex: 1; min-height: 150px; width: 100%; }
-.countrycell { display: inline-flex; align-items: center; gap: 8px; }
-.totalcell { display: inline-flex; align-items: baseline; gap: 8px; }
-.totalcell small { font-size: 13px; font-weight: 600; opacity: 0.7; }
+.grid { flex: 1; min-height: 120px; width: 100%; }
+.twoline { display: flex; flex-direction: column; justify-content: center; line-height: 1.25; height: 100%; }
+.twoline strong { font-size: 16px; font-weight: 700; }
+.twoline small { font-size: 13px; opacity: 0.65; font-variant-numeric: tabular-nums; }
 .status {
    display: inline-block;
-   padding: 1px 12px;
-   border: 2.5px solid var(--ink);
-   border-radius: 6px;
+   padding: 1px 10px;
+   border-radius: 4px;
    font-weight: 700;
-   font-size: 13px;
-   letter-spacing: 0.08em;
+   font-size: 12px;
+   letter-spacing: 0.1em;
    text-transform: uppercase;
-   line-height: 1.5;
+   line-height: 1.7;
 }
 .status--awaiting_payment { background: var(--red); color: var(--white-paper); }
 .status--paid { background: var(--ink); color: var(--gold); }
 .status--draft { background: var(--paper-edge); }
-.status--cancelled { background: transparent; opacity: 0.6; }
-.rowactions { display: flex; gap: 6px; align-items: center; height: 100%; }
+.status--cancelled { opacity: 0.55; }
+.rowactions { display: flex; gap: 14px; align-items: center; height: 100%; }
 .rowactions .btn {
-   box-shadow: none;
-   /* AG Grid cells set a tall line-height; reset it for buttons. */
    line-height: 1.2;
-   height: 32px;
-   min-height: 32px;
-   padding: 2px 12px;
-   border-width: 2.5px;
-   font-size: 13px;
+   height: 34px;
+   min-height: 34px;
+   padding: 2px 16px;
+   font-size: 14px;
+   border-width: 2px;
 }
+.linkbtn {
+   border: 0;
+   background: none;
+   padding: 0;
+   font-size: 14px;
+   font-weight: 600;
+   text-decoration: underline;
+   text-underline-offset: 3px;
+   opacity: 0.75;
+   line-height: 1.2;
+}
+.linkbtn:hover:not(:disabled) { opacity: 1; }
+.linkbtn:disabled { opacity: 0.35; cursor: not-allowed; }
 
-/* ---------- owner chat ---------- */
+/* ---------- seller chat: the quiet bottom of the sheet ---------- */
 .ownerchat {
    flex: none;
-   border: var(--border);
-   box-shadow: var(--shadow-hard);
-   background-color: #f6e8c4;
-   overflow: hidden;
+   border-top: 2px solid var(--ink);
+   background: var(--paper);
    display: flex;
    flex-direction: column;
 }
-.ownerchat__body {
-   height: 118px;
-   display: flex;
-   flex-direction: column;
-   background-image:
-      url("/blockprint-light.svg");
-   background-size: 72px 72px;
+.ownerchat__head { padding: 10px 28px 0; }
+.ownerchat__body { height: 120px; display: flex; flex-direction: column; }
+.ownerchat .thread { flex: 1; padding: 6px 28px; gap: 8px; }
+.ownerchat .msg__bubble {
+   box-shadow: none;
+   border-width: 2px;
+   font-size: 15px;
+   padding: 5px 12px;
 }
-.ownerchat .thread { flex: 1; }
+.ownerchat .composer { background: none; padding: 0 28px 12px; }
+.ownerchat .chip { border-color: var(--ink); color: var(--ink); font-size: 13px; }
+.ownerchat .chip:hover:not(:disabled) { background: var(--ink); color: var(--gold); }
+.ownerchat .composer__row input { border: 2px solid var(--ink); min-height: 42px; }
+.ownerchat .composer__send { background: var(--ink); color: var(--gold); width: 42px; height: 42px; }
 
 @media (max-width: 760px) {
-   .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-   .panel__head { padding: 12px; }
+   .sheet__head, .strip, .ownerchat__head { padding-left: 16px; padding-right: 16px; }
+   .strip { grid-template-columns: 1fr; gap: 10px; }
+   .strip__lead + .strip__lead { padding-left: 0; border-left: 0; }
+   .strip__value { font-size: 44px; }
+   .sheet__head .eyebrow { display: none; }
+   .sheet__head { justify-content: flex-end; }
+   .sheet .btn { padding: 6px 16px; }
+   .ownerchat .thread, .ownerchat .composer { padding-left: 16px; padding-right: 16px; }
    /* Compact grid: rows open the evidence pack on tap instead. */
-   .btn--evidence { display: none; }
-   .panel--grow { min-height: 0; }
-   .grid { height: 300px; flex: none; }
-   .rowactions .btn { padding: 2px 7px; font-size: 12px; }
-   .rowactions { gap: 4px; }
-   .twoline strong { font-size: 14px; }
-   .twoline small { font-size: 12px; }
-   .status { padding: 1px 8px; letter-spacing: 0.04em; font-size: 12px; }
+   .linkbtn--evidence { display: none; }
+   .orders { min-height: 0; }
+   .grid { height: 320px; flex: none; }
+   .rowactions { gap: 8px; }
+   .rowactions .btn { padding: 2px 10px; font-size: 13px; }
+   .status { padding: 1px 6px; letter-spacing: 0.04em; }
 }
-
-/* Compact customer cell used by the phone-width grid. */
-.twoline { display: flex; flex-direction: column; line-height: 1.2; padding-top: 8px; }
-.twoline small { font-size: 13px; opacity: 0.7; }

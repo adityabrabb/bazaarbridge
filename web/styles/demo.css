@@ -7,21 +7,18 @@
    display: flex;
    flex-direction: column;
    overflow: hidden;
-   /* Halftone dots on signboard yellow: printed-poster ground. */
+   /* Flat signboard yellow: the only texture is inside the phone. */
    background-color: var(--gold);
-   background-image: radial-gradient(
-      rgba(16, 21, 58, 0.13) 1.6px, transparent 1.8px);
-   background-size: 16px 16px;
 }
 
 .topbar {
    display: flex;
    align-items: center;
    gap: 16px;
-   padding: 12px 28px;
+   padding: 8px 28px;
    background: var(--ink);
-   border-bottom: 12px solid transparent;
-   border-image: var(--airmail) 12;
+   border-bottom: 8px solid transparent;
+   border-image: var(--airmail) 8;
    flex: none;
 }
 .topbar__tag {
@@ -44,9 +41,9 @@
 
 .split {
    display: grid;
-   grid-template-columns: minmax(360px, 410px) minmax(0, 1fr);
-   gap: 28px;
-   padding: 14px 24px 18px;
+   grid-template-columns: minmax(380px, 430px) minmax(0, 1fr);
+   gap: 40px;
+   padding: 16px 28px 20px;
    max-width: 1560px;
    width: 100%;
    margin: 0 auto;

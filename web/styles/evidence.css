@@ -51,8 +51,8 @@
 }
 .dossier__title { font-size: 38px; margin: 6px 0; }
 .dossier__meta { font-weight: 600; }
-.dossier__stamp { position: absolute; right: 0; bottom: 10px; }
-.dossier__stamp .stamp { font-size: 54px; }
+.dossier__stamp { position: absolute; right: -4px; top: 0; }
+.dossier__stamp .stamp { font-size: 32px; }
 .dossier__open {
    position: absolute;
    right: 0;

@@ -1,8 +1,8 @@
 "use client";
 /**
- * The seller dashboard column: rupee tiles, orders grid with its
- * actions, and the owner chat. Presentational; the DemoStudio owns
- * all state and passes it in.
+ * The seller's ledger: one sheet with the two lead numbers, the
+ * orders list with its actions, and the owner chat at the foot.
+ * Presentational; the DemoStudio owns all state and passes it in.
  */
 import type { ConversationState } from "@/hooks/useConversation";
 import type { Order, Stats } from "@/lib/types";
@@ -23,23 +23,25 @@ type Props = {
    onReset: () => void;
 };
 
-/** Lays out the dashboard panels top to bottom. */
+/** Lays out the ledger sheet top to bottom. */
 export function Dashboard(p: Props) {
    const unpaid = p.orders.filter(
       (o) => o.status === "awaiting_payment").length;
    return (
       <div className="dash">
-         <StatsTiles stats={p.stats} />
-         <section className="panel paper panel--grow">
-            <div className="panel__head">
-               <h2 className="panel__heading">Export orders</h2>
+         <div className="sheet">
+            <div className="sheet__head">
+               <h2 className="eyebrow">Seller's ledger</h2>
                <DashboardActions unpaidCount={unpaid} busy={p.busy}
                   onRemindAll={p.onRemindAll} onReset={p.onReset} />
             </div>
-            {p.error ? <p className="inlineerr">{p.error}</p> : null}
-            <OrdersGrid orders={p.orders} context={p.gridContext} />
-         </section>
-         <OwnerChat chat={p.ownerChat} />
+            <StatsTiles stats={p.stats} />
+            <section className="orders" aria-label="Export orders">
+               {p.error ? <p className="inlineerr">{p.error}</p> : null}
+               <OrdersGrid orders={p.orders} context={p.gridContext} />
+            </section>
+            <OwnerChat chat={p.ownerChat} />
+         </div>
       </div>
    );
 }

@@ -18,9 +18,6 @@
 /* ---------- hero ---------- */
 .hero {
    background-color: var(--gold);
-   background-image: radial-gradient(
-      rgba(16, 21, 58, 0.13) 1.6px, transparent 1.8px);
-   background-size: 16px 16px;
    border-bottom: 8px solid var(--ink);
    padding: 0 clamp(16px, 4vw, 56px) 72px;
 }
@@ -184,11 +181,8 @@
 /* ---------- who it is for (shutter) ---------- */
 .who {
    color: var(--paper);
-   padding: 96px clamp(16px, 4vw, 56px);
+   padding: 72px clamp(16px, 4vw, 56px);
    background-color: var(--ink);
-   /* Roll-down shutter ribs. */
-   background-image: url("/blockprint-dark.svg");
-   background-size: 72px 72px;
    border-bottom: 8px solid var(--red);
 }
 .who__grid {
@@ -318,10 +312,7 @@
 /* ---------- how it works ---------- */
 .how {
    background-color: var(--gold);
-   background-image: radial-gradient(
-      rgba(16, 21, 58, 0.13) 1.6px, transparent 1.8px);
-   background-size: 16px 16px;
-   padding: 96px clamp(16px, 4vw, 56px) 110px;
+   padding: 72px clamp(16px, 4vw, 56px) 80px;
 }
 .how__title {
    font-size: clamp(40px, 5vw, 76px);
@@ -340,9 +331,8 @@
 .slip3 {
    position: relative;
    padding: 32px 26px 26px;
-   border: 4px solid var(--ink);
-   box-shadow: 10px 10px 0 var(--ink);
-   min-height: 360px;
+   border: 2px solid var(--ink);
+   min-height: 330px;
    display: flex;
    flex-direction: column;
    gap: 12px;
@@ -379,30 +369,26 @@
    margin-left: auto;
    padding: 8px 18px;
    background: var(--gold);
-   border: 3px solid var(--ink);
+   border: 2px solid var(--ink);
    border-radius: 18px 18px 4px 18px;
-   box-shadow: 3px 3px 0 var(--ink);
    font-weight: 600;
 }
 .slip3__pay {
    background: var(--red);
    color: var(--white-paper);
-   border: 3px solid var(--ink);
+   border: 2px solid var(--ink);
    border-radius: 12px;
    font-family: var(--font-display);
    font-size: 22px;
    padding: 14px 18px;
-   box-shadow: 4px 4px 0 var(--ink);
 }
 .slip3__art .stamp { font-size: 64px; }
 
 /* ---------- under the hood ---------- */
 .hood {
    background-color: var(--ink);
-   background-image: url("/blockprint-dark.svg");
-   background-size: 72px 72px;
    color: var(--paper);
-   padding: 88px clamp(16px, 4vw, 56px);
+   padding: 64px clamp(16px, 4vw, 56px);
    display: grid;
    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
    gap: 48px;

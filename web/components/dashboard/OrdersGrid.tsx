@@ -1,8 +1,8 @@
 "use client";
 /**
- * The export orders table, built on AG Grid Community. Columns:
- * status, buyer, country, currency, total (buyer currency with the
- * rupee value beside it), actions. Rows are keyed by id so
+ * The export orders list, built on AG Grid Community. Columns:
+ * status, buyer (with country), total (buyer currency, code and rupee
+ * value), age with reminder count, actions. Rows are keyed by id so
  * live updates change in place and flash the status cell.
  */
 import { useMemo } from "react";
@@ -11,10 +11,9 @@ import {
    type ColDef, type ICellRendererParams, type RowClickedEvent,
 } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
-import { PostageStamp } from "@/components/common/PostageStamp";
 import { useNarrow } from "@/hooks/useNarrow";
 import { NARROW_GRID_PX } from "@/lib/constants";
-import { countryName, inr, money } from "@/lib/format";
+import { ageOf, countryName, inr, money } from "@/lib/format";
 import type { Order, OrderStatus } from "@/lib/types";
 import { exportTheme } from "./gridTheme";
 import { OrderActions, type GridContext } from "./OrderActions";
@@ -45,25 +44,38 @@ function ActionsCell(p: ICellRendererParams<Order>) {
    return <OrderActions order={p.data} ctx={p.context as GridContext} />;
 }
 
-/** Country cell: a tiny postage stamp plus the country name. */
-function CountryCell(p: ICellRendererParams<Order>) {
+/** Buyer cell: name, then the country underneath. */
+function WhoCell(p: ICellRendererParams<Order>) {
    if (!p.data) return null;
    return (
-      <span className="countrycell">
-         <PostageStamp code={p.data.buyerCountry} size="sm" />
-         {countryName(p.data.buyerCountry)}
-      </span>
+      <div className="twoline">
+         <strong>{p.data.customerName}</strong>
+         <small>{countryName(p.data.buyerCountry)}</small>
+      </div>
    );
 }
 
-/** Total cell: buyer currency first, rupee value beside it. */
+/** Total cell: buyer-currency amount, then code and rupee value. */
 function TotalCell(p: ICellRendererParams<Order>) {
    if (!p.data) return null;
    return (
-      <span className="totalcell">
+      <div className="twoline">
          <strong>{money(p.data.total, p.data.currency)}</strong>
-         <small>{inr(p.data.totalInr)}</small>
-      </span>
+         <small>{p.data.currency} · {inr(p.data.totalInr)}</small>
+      </div>
+   );
+}
+
+/** Follow-up cell: how old the order is and how often we nudged. */
+function FollowCell(p: ICellRendererParams<Order>) {
+   if (!p.data) return null;
+   const n = p.data.reminders;
+   return (
+      <div className="twoline">
+         <strong>{ageOf(p.data.createdAt)}</strong>
+         <small>{n === 0 ? "no reminders" :
+            `${n} reminder${n === 1 ? "" : "s"}`}</small>
+      </div>
    );
 }
 
@@ -95,23 +107,20 @@ export function OrdersGrid({ orders, context }: Props) {
       { headerName: "Actions", width: 140, pinned: "right",
         sortable: false, cellRenderer: ActionsCell },
    ] : [
-      { field: "status", headerName: "Status", width: 100,
+      { field: "status", headerName: "Status", width: 104,
         cellRenderer: StatusCell, enableCellChangeFlash: true },
-      { field: "customerName", headerName: "Buyer", flex: 1,
-        minWidth: 104 },
-      { field: "buyerCountry", headerName: "Country", width: 176,
-        cellRenderer: CountryCell },
-      { field: "currency", headerName: "Cur.", width: 76 },
-      { field: "total", headerName: "Total (buyer / ₹)", width: 184,
-        cellRenderer: TotalCell },
-      { headerName: "Actions", width: 262, sortable: false,
+      { headerName: "Buyer", flex: 1, minWidth: 150,
+        cellRenderer: WhoCell },
+      { headerName: "Total", width: 150, cellRenderer: TotalCell },
+      { headerName: "Age", width: 140, cellRenderer: FollowCell },
+      { headerName: "", width: 250, sortable: false,
         cellRenderer: ActionsCell },
    ], [narrow]);
 
    /** Tapping a row opens its evidence (buttons keep their job). */
    const onRowClicked = (e: RowClickedEvent<Order>) => {
       const target = e.event?.target as HTMLElement | null;
-      if (target?.closest("button") || !e.data) return;
+      if (target?.closest("button, a") || !e.data) return;
       context.onEvidence(e.data.id);
    };
 

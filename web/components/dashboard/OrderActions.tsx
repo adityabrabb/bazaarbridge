@@ -1,9 +1,9 @@
 "use client";
 /**
- * Action buttons inside one grid row: open the evidence pack,
- * send a reminder (unpaid only), and in PayPal mock mode only,
- * simulate the buyer paying. With real PayPal, unpaid rows get a
- * Refresh button instead, to re-check the order with PayPal.
+ * Actions inside one grid row. One primary button (Remind, unpaid
+ * rows only); everything else is a quiet text link: Evidence opens
+ * the pack (the whole row does too), "Sim. pay" in PayPal mock mode,
+ * and Refresh on unpaid rows with real PayPal.
  */
 import type { Order } from "@/lib/types";
 
@@ -16,7 +16,7 @@ export type GridContext = {
    onEvidence: (id: string) => void;
 };
 
-/** Renders the row's buttons; disabled while its call is running. */
+/** Renders the row's actions; disabled while its call is running. */
 export function OrderActions(
    { order, ctx }: { order: Order; ctx: GridContext },
 ) {
@@ -24,25 +24,26 @@ export function OrderActions(
    const unpaid = order.status === "awaiting_payment";
    return (
       <div className="rowactions">
-         <button className="btn btn--small btn--evidence"
-            onClick={() => ctx.onEvidence(order.id)}>
-            Evidence
-         </button>
          {unpaid ? (
             <button className="btn btn--small btn--red" disabled={busy}
                onClick={() => ctx.onRemind(order.id)}>
                Remind
             </button>
          ) : null}
+         <button className="linkbtn linkbtn--evidence"
+            onClick={() => ctx.onEvidence(order.id)}>
+            Evidence
+         </button>
          {unpaid && ctx.mockPayPal ? (
-            <button className="btn btn--small btn--ink" disabled={busy}
+            <button className="linkbtn" disabled={busy}
                onClick={() => ctx.onSimulate(order.id)}>
                Sim. pay
             </button>
          ) : null}
          {unpaid && !ctx.mockPayPal ? (
-            <button className="btn btn--small" disabled={busy}
-               onClick={() => ctx.onRefresh(order.id)}>
+            <button className="linkbtn" disabled={busy}
+               onClick={() => ctx.onRefresh(order.id)}
+               aria-label="Re-check with PayPal" title="Re-check with PayPal">
                Refresh
             </button>
          ) : null}

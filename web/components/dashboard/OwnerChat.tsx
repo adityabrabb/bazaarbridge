@@ -1,8 +1,9 @@
 "use client";
 /**
  * The owner's chat with the agent (conversation id `owner`):
- * "kis kis ka payment pending hai?" and "send reminders". Presentational;
- * the DemoStudio owns the conversation state.
+ * "kis kis ka payment pending hai?" and "send reminders". Sits at the
+ * foot of the ledger sheet, quieter than the numbers above it.
+ * Presentational; the DemoStudio owns the conversation state.
  */
 import { ChatThread } from "@/components/chat/ChatThread";
 import { Composer } from "@/components/chat/Composer";
@@ -12,11 +13,13 @@ import {
 } from "@/lib/constants";
 import type { ConversationState } from "@/hooks/useConversation";
 
-/** Renders a bordered panel containing the owner thread + composer. */
+/** Renders the owner thread + composer under a small label. */
 export function OwnerChat({ chat }: { chat: ConversationState }) {
    return (
       <section className="ownerchat" aria-label="Ask the sales desk">
-         <h3 className="panel__title">Ask the agent</h3>
+         <div className="ownerchat__head">
+            <h3 className="eyebrow">Ask the agent</h3>
+         </div>
          <div className="ownerchat__body">
             <ChatThread messages={chat.messages} viewer="owner"
                ctx={NO_PAYMENT_CONTEXT} sending={chat.sending}

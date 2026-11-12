@@ -17,13 +17,13 @@ export function DashboardActions(
 ) {
    return (
       <div className="dashactions">
+         <button className="quietbtn" onClick={onReset}
+            disabled={busy}>
+            Reset demo
+         </button>
          <button className="btn btn--red" onClick={onRemindAll}
             disabled={busy || unpaidCount === 0}>
             Send reminders ({unpaidCount})
-         </button>
-         <button className="btn btn--small" onClick={onReset}
-            disabled={busy}>
-            Reset demo
          </button>
       </div>
    );

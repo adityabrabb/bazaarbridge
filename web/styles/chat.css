@@ -4,9 +4,16 @@
 .switcher {
    display: flex;
    align-items: center;
-   gap: 8px;
-   flex-wrap: wrap;
-   margin-bottom: 12px;
+   gap: 4px;
+   flex-wrap: nowrap;
+   overflow-x: auto;
+   scrollbar-width: none;
+   margin-bottom: 14px;
+   padding: 4px;
+   width: max-content;
+   max-width: 100%;
+   border-radius: 999px;
+   background: rgba(16, 21, 58, 0.12);
 }
 .switcher__label {
    display: none;
@@ -17,22 +24,27 @@
    margin-right: 4px;
 }
 .pill {
-   border: var(--border);
+   border: 0;
    border-radius: 999px;
-   background: var(--paper);
+   background: transparent;
    padding: 4px 14px;
-   min-height: 36px;
+   min-height: 34px;
    font-weight: 700;
-   font-size: 14px;
+   font-size: 15px;
+   white-space: nowrap;
 }
 .pill--on { background: var(--ink); color: var(--gold); }
+
+@media (max-width: 480px) {
+   .pill { padding: 4px 10px; font-size: 14px; }
+}
 
 /* ---------- phone ---------- */
 .phone {
    position: relative;
    width: 100%;
-   max-width: 410px;
-   height: min(790px, calc(100vh - 128px));
+   max-width: 430px;
+   height: min(800px, calc(100vh - 128px));
    min-height: 0;
    background: var(--ink);
    border-radius: 46px;

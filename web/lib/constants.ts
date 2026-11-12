@@ -66,8 +66,8 @@ export const MINUTES_PER_HOUR = 60;
 export const HOURS_PER_DAY = 24;
 
 /** Grid sizing, in pixels. */
-export const GRID_ROW_HEIGHT = 56;
-export const GRID_HEADER_HEIGHT = 40;
+export const GRID_ROW_HEIGHT = 62;
+export const GRID_HEADER_HEIGHT = 36;
 
 /** Below this width the orders grid switches to compact columns. */
 export const NARROW_GRID_PX = 760;
