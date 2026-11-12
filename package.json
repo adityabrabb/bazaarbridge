@@ -1,0 +1,19 @@
+{
+   "name": "bazaarbridge",
+   "version": "0.1.0",
+   "private": true,
+   "description": "Export sales desk for small Indian craft sellers: quotes in the buyer currency, PayPal invoices, evidence packs",
+   "license": "MIT",
+   "scripts": {
+      "setup": "npm install && npm --prefix core install && node core/scripts/optional-web.mjs install",
+      "dev": "concurrently -n core,web -c cyan,magenta \"npm --prefix core run dev\" \"node core/scripts/optional-web.mjs run dev\"",
+      "start:core": "npm --prefix core start",
+      "test": "npm --prefix core test"
+   },
+   "devDependencies": {
+      "concurrently": "^10.0.7"
+   },
+   "engines": {
+      "node": ">=22.18"
+   }
+}

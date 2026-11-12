@@ -1,0 +1,21 @@
+.env
+node_modules/
+.next/
+__pycache__/
+.env.*
+!.env.example
+data/*.json
+data/*.json.*
+
+# Internal planning notes (kept locally, not published)
+/STATUS.md
+/PLAN.md
+/HANDOVER.md
+/HACKATHON_BLITZ.md
+/TICKETS.md
+/SPEC.md
+/CLAUDE.md
+/AGENTS.md
+/.claude/
+/submissions/
+.playwright-mcp/

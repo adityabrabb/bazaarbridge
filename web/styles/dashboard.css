@@ -1,0 +1,147 @@
+/* Owner dashboard: tiles, orders panel, grid chips, owner chat. */
+
+.dash {
+   display: flex;
+   flex-direction: column;
+   gap: 18px;
+   height: 100%;
+   min-height: 0;
+}
+
+/* ---------- stat tiles ---------- */
+.tiles {
+   display: grid;
+   grid-template-columns: repeat(4, minmax(0, 1fr));
+   gap: 14px;
+}
+.tile {
+   border: var(--border);
+   box-shadow: var(--shadow-soft);
+   padding: 8px 16px 6px;
+   background: var(--white-paper);
+}
+.tile--ink { background: var(--ink); color: var(--gold); }
+.tile--red { background: var(--red); color: var(--white-paper); }
+.tile__label {
+   display: flex;
+   justify-content: space-between;
+   gap: 8px;
+   font-size: 12px;
+   font-weight: 700;
+   letter-spacing: 0.12em;
+   text-transform: uppercase;
+}
+.tile__sub {
+   font-size: 12px;
+   font-weight: 600;
+   min-height: 1.3em;
+   opacity: 0.85;
+   font-variant-numeric: tabular-nums;
+}
+.tile__value {
+   font-family: var(--font-display);
+   font-size: clamp(32px, 3vw, 46px);
+   line-height: 1.1;
+   margin-top: 4px;
+   font-variant-numeric: tabular-nums;
+}
+
+/* ---------- panels ---------- */
+.panel {
+   border: var(--border);
+   box-shadow: var(--shadow-hard);
+   overflow: hidden;
+}
+.panel__head {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   gap: 12px;
+   flex-wrap: wrap;
+   padding: 14px 16px;
+   border-bottom: var(--border);
+}
+.panel__heading { font-size: 30px; }
+.panel__title {
+   font-size: 24px;
+   padding: 12px 16px 10px;
+   background: var(--ink);
+   color: var(--gold);
+}
+.dashactions { display: flex; gap: 10px; align-items: center; }
+
+/* ---------- grid ---------- */
+.panel--grow {
+   flex: 1;
+   min-height: 190px;
+   display: flex;
+   flex-direction: column;
+}
+.grid { flex: 1; min-height: 150px; width: 100%; }
+.countrycell { display: inline-flex; align-items: center; gap: 8px; }
+.totalcell { display: inline-flex; align-items: baseline; gap: 8px; }
+.totalcell small { font-size: 13px; font-weight: 600; opacity: 0.7; }
+.status {
+   display: inline-block;
+   padding: 1px 12px;
+   border: 2.5px solid var(--ink);
+   border-radius: 6px;
+   font-weight: 700;
+   font-size: 13px;
+   letter-spacing: 0.08em;
+   text-transform: uppercase;
+   line-height: 1.5;
+}
+.status--awaiting_payment { background: var(--red); color: var(--white-paper); }
+.status--paid { background: var(--ink); color: var(--gold); }
+.status--draft { background: var(--paper-edge); }
+.status--cancelled { background: transparent; opacity: 0.6; }
+.rowactions { display: flex; gap: 6px; align-items: center; height: 100%; }
+.rowactions .btn {
+   box-shadow: none;
+   /* AG Grid cells set a tall line-height; reset it for buttons. */
+   line-height: 1.2;
+   height: 32px;
+   min-height: 32px;
+   padding: 2px 12px;
+   border-width: 2.5px;
+   font-size: 13px;
+}
+
+/* ---------- owner chat ---------- */
+.ownerchat {
+   flex: none;
+   border: var(--border);
+   box-shadow: var(--shadow-hard);
+   background-color: #f6e8c4;
+   overflow: hidden;
+   display: flex;
+   flex-direction: column;
+}
+.ownerchat__body {
+   height: 118px;
+   display: flex;
+   flex-direction: column;
+   background-image:
+      url("/blockprint-light.svg");
+   background-size: 72px 72px;
+}
+.ownerchat .thread { flex: 1; }
+
+@media (max-width: 760px) {
+   .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+   .panel__head { padding: 12px; }
+   /* Compact grid: rows open the evidence pack on tap instead. */
+   .btn--evidence { display: none; }
+   .panel--grow { min-height: 0; }
+   .grid { height: 300px; flex: none; }
+   .rowactions .btn { padding: 2px 7px; font-size: 12px; }
+   .rowactions { gap: 4px; }
+   .twoline strong { font-size: 14px; }
+   .twoline small { font-size: 12px; }
+   .status { padding: 1px 8px; letter-spacing: 0.04em; font-size: 12px; }
+}
+
+/* Compact customer cell used by the phone-width grid. */
+.twoline { display: flex; flex-direction: column; line-height: 1.2; padding-top: 8px; }
+.twoline small { font-size: 13px; opacity: 0.7; }

@@ -1,0 +1,31 @@
+/*
+ * Design tokens. Palette: block-print indigo (base ground), marigold
+ * (contrast, the loud field), vermilion stamp red (pop, carries the
+ * feeling), plus parcel-paper cream as the only neutral and a deep
+ * indigo-black ink for type and rules.
+ */
+:root {
+   --indigo: #1d2f8f;
+   --gold: #ffb81c;
+   --gold-deep: #e89a00;
+   --ink: #10153a;
+   --red: #e3342f;
+   --paper: #f8ecd2;
+   --paper-edge: #ecd9a8;
+   --white-paper: #fffaf0;
+   --kraft: #c9965a;
+   --kraft-dark: #a9753c;
+
+   --font-display: var(--font-rozha), "Times New Roman", serif;
+   --font-body: var(--font-hind), system-ui, sans-serif;
+
+   --border: 3px solid var(--ink);
+   --shadow-hard: 6px 6px 0 var(--ink);
+   --shadow-soft: 3px 3px 0 var(--ink);
+   --radius: 14px;
+
+   /* Airmail edge: the one stripe pattern used on parcel-ish things. */
+   --airmail: repeating-linear-gradient(
+      -45deg, var(--red) 0 14px, var(--paper) 14px 28px,
+      var(--indigo) 28px 42px, var(--paper) 42px 56px);
+}

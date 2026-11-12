@@ -1,0 +1,109 @@
+/* /demo page frame: sign-board top bar, split screen, stamp slam. */
+
+.stage {
+   /* Fixed to the viewport on desktop so no panel is cut off. */
+   height: 100vh;
+   height: 100dvh;
+   display: flex;
+   flex-direction: column;
+   overflow: hidden;
+   /* Halftone dots on signboard yellow: printed-poster ground. */
+   background-color: var(--gold);
+   background-image: radial-gradient(
+      rgba(16, 21, 58, 0.13) 1.6px, transparent 1.8px);
+   background-size: 16px 16px;
+}
+
+.topbar {
+   display: flex;
+   align-items: center;
+   gap: 16px;
+   padding: 12px 28px;
+   background: var(--ink);
+   border-bottom: 12px solid transparent;
+   border-image: var(--airmail) 12;
+   flex: none;
+}
+.topbar__tag {
+   background: var(--red);
+   color: var(--white-paper);
+   font-weight: 700;
+   font-size: 12px;
+   letter-spacing: 0.18em;
+   padding: 3px 10px;
+   transform: rotate(-3deg);
+}
+.topbar__spacer { flex: 1; }
+
+.notice {
+   padding: 10px 28px;
+   background: var(--red);
+   color: var(--white-paper);
+   font-weight: 600;
+}
+
+.split {
+   display: grid;
+   grid-template-columns: minmax(360px, 410px) minmax(0, 1fr);
+   gap: 28px;
+   padding: 14px 24px 18px;
+   max-width: 1560px;
+   width: 100%;
+   margin: 0 auto;
+   flex: 1;
+   min-height: 0;
+   align-items: stretch;
+}
+.split__phone { display: flex; flex-direction: column; min-height: 0; }
+.split__phone .phone { flex: 1; height: auto; }
+.split__dash { min-height: 0; min-width: 0; }
+.topbar__seller { color: var(--paper); font-weight: 600; font-size: 14px; }
+
+.inlineerr {
+   background: var(--red);
+   color: var(--white-paper);
+   padding: 6px 14px;
+   font-size: 14px;
+   font-weight: 600;
+}
+
+/* ---------- PAID slam overlay ---------- */
+.slam {
+   position: fixed;
+   inset: 0;
+   z-index: 50;
+   display: grid;
+   place-items: center;
+   cursor: pointer;
+}
+.slam__shade {
+   position: absolute;
+   inset: 0;
+   background: rgba(255, 184, 28, 0.72);
+   animation: fadein 0.2s ease-out both;
+}
+.slam__body {
+   position: relative;
+   padding: 24px;
+   background: var(--white-paper);
+   border: 6px solid var(--ink);
+   box-shadow: 14px 14px 0 var(--ink);
+   transform: rotate(2deg);
+   animation: fadein 0.2s ease-out both;
+}
+@keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+
+/* ---------- phone-width layout ---------- */
+@media (max-width: 980px) {
+   .stage { height: auto; min-height: 100vh; overflow: visible; }
+   .split__phone .phone { flex: none; height: 680px; }
+   .split__dash { min-height: auto; }
+   .dash { height: auto; }
+   .split {
+      grid-template-columns: minmax(0, 1fr);
+      padding: 16px;
+      gap: 28px;
+   }
+   .topbar { padding: 10px 16px; flex-wrap: wrap; gap: 10px; }
+   .phone { margin: 0 auto; }
+}

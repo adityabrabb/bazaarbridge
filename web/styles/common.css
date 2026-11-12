@@ -1,0 +1,95 @@
+/* Shared pieces: logo, badges, offline banner, the PAID stamp. */
+
+.logo {
+   display: inline-flex;
+   flex-direction: column;
+   text-decoration: none;
+   color: var(--ink);
+   line-height: 1;
+}
+.logo__latin {
+   font-family: var(--font-display);
+   font-size: 30px;
+   letter-spacing: 0.04em;
+}
+.logo__hindi {
+   font-size: 12px;
+   font-weight: 700;
+   letter-spacing: 0.04em;
+   margin-top: 3px;
+}
+.logo--dark { color: var(--gold); }
+
+.badges { display: inline-flex; gap: 8px; flex-wrap: wrap; }
+.badge {
+   border: 2px solid var(--gold);
+   border-radius: 6px;
+   padding: 2px 9px;
+   font-size: 12px;
+   font-weight: 700;
+   letter-spacing: 0.06em;
+   text-transform: uppercase;
+   color: var(--gold);
+   white-space: nowrap;
+}
+.badge--mock { border-style: dashed; }
+.badge--live { background: var(--gold); color: var(--ink); }
+.badge--off { opacity: 0.6; }
+
+.offline {
+   padding: 12px 18px;
+   color: var(--ink);
+   font-weight: 600;
+   border-bottom: var(--border);
+   background: repeating-linear-gradient(
+      -45deg, var(--gold) 0 16px, #fff1b8 16px 32px);
+}
+.offline code {
+   background: var(--ink);
+   color: var(--gold);
+   padding: 1px 7px;
+   border-radius: 4px;
+}
+
+/* ---------- PAID stamp ---------- */
+.stamp {
+   display: inline-block;
+   color: var(--red);
+   transform: rotate(-9deg);
+   filter: url(#rough-ink);
+   mix-blend-mode: multiply;
+   pointer-events: none;
+}
+.stamp__ring {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   border: 0.12em solid currentColor;
+   outline: 0.04em solid currentColor;
+   outline-offset: 0.07em;
+   border-radius: 0.18em;
+   padding: 0.02em 0.28em 0.08em;
+   font-family: var(--font-display);
+   line-height: 1;
+}
+.stamp__word { font-size: 1em; letter-spacing: 0.08em; }
+.stamp__caption {
+   font-family: var(--font-body);
+   font-size: 0.17em;
+   font-weight: 700;
+   letter-spacing: 0.18em;
+   text-transform: uppercase;
+   border-top: 0.015em solid currentColor;
+   padding-top: 0.2em;
+   margin-top: 0.1em;
+}
+.stamp--md { font-size: 44px; }
+.stamp--xl { font-size: clamp(110px, 22vw, 280px); }
+
+.stamp--slam { animation: slam 0.55s cubic-bezier(0.2, 1.4, 0.4, 1) both; }
+@keyframes slam {
+   0% { transform: rotate(-9deg) scale(3.2); opacity: 0; }
+   55% { transform: rotate(-9deg) scale(0.92); opacity: 1; }
+   70% { transform: rotate(-7deg) scale(1.04); }
+   100% { transform: rotate(-9deg) scale(1); opacity: 1; }
+}

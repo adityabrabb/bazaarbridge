@@ -1,0 +1,23 @@
+{
+   "name": "bazaarbridge-core",
+   "version": "0.1.0",
+   "private": true,
+   "type": "module",
+   "description": "BazaarBridge engine: export sales agent + PayPal + JSON store over HTTP",
+   "scripts": {
+      "dev": "node --watch src/server.ts",
+      "start": "node src/server.ts",
+      "typecheck": "tsc --noEmit -p .",
+      "test": "tsc --noEmit -p . && node --test \"test/**/*.test.ts\""
+   },
+   "engines": {
+      "node": ">=22.18"
+   },
+   "dependencies": {
+      "@anthropic-ai/sdk": "^1.8.0"
+   },
+   "devDependencies": {
+      "@types/node": "^24.19.2",
+      "typescript": "^7.0.2"
+   }
+}

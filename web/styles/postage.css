@@ -1,0 +1,44 @@
+/* Airmail edge and perforated postage stamps. */
+.airmail { height: 12px; background: var(--airmail); }
+
+.postage {
+   --stamp-bg: var(--red);
+   --stamp-fg: var(--white-paper);
+   display: inline-flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   flex: none;
+   padding: 7px;
+   background: var(--stamp-bg);
+   color: var(--stamp-fg);
+   font-family: var(--font-display);
+   line-height: 1;
+   /* Perforated rim: round holes along every edge, solid middle. */
+   -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      radial-gradient(circle 3px, #0000 97%, #000) -4px -4px / 8px 8px
+         border-box;
+   mask:
+      linear-gradient(#000 0 0) content-box,
+      radial-gradient(circle 3px, #0000 97%, #000) -4px -4px / 8px 8px
+         border-box;
+}
+.postage--indigo { --stamp-bg: var(--indigo); --stamp-fg: var(--gold); }
+.postage--gold { --stamp-bg: var(--gold); --stamp-fg: var(--ink); }
+.postage__code {
+   border: 2px solid currentColor;
+   padding: 2px 5px;
+   letter-spacing: 0.06em;
+}
+.postage__value { margin-top: 3px; opacity: 0.9; }
+.postage--sm { padding: 4px; }
+.postage--sm .postage__code {
+   font-size: 12px; border-width: 1.5px; padding: 1px 3px;
+}
+.postage--sm .postage__value { display: none; }
+.postage--md .postage__code { font-size: 18px; }
+.postage--md .postage__value { font-size: 16px; }
+.postage--lg { padding: 9px; }
+.postage--lg .postage__code { font-size: 28px; padding: 4px 8px; }
+.postage--lg .postage__value { font-size: 34px; margin-top: 6px; }

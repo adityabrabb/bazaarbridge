@@ -1,0 +1,24 @@
+{
+   "name": "bazaarbridge-web",
+   "version": "0.1.0",
+   "private": true,
+   "scripts": {
+      "dev": "next dev -p 3000",
+      "build": "next build",
+      "start": "next start -p 3000",
+      "mock": "node dev-mock/server.mjs"
+   },
+   "dependencies": {
+      "ag-grid-community": "^36.3.0",
+      "ag-grid-react": "^36.3.0",
+      "next": "^16.4.6",
+      "react": "^19.3.1",
+      "react-dom": "^19.3.1"
+   },
+   "devDependencies": {
+      "@types/node": "^26.6.6",
+      "@types/react": "^19.3.0",
+      "@types/react-dom": "^19.3.0",
+      "typescript": "^7.0.2"
+   }
+}
