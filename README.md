@@ -50,7 +50,7 @@ Open http://localhost:3000 for the landing page and http://localhost:3000/demo f
 4. Click the pay button and log in with your sandbox **personal** test account (developer.paypal.com → Testing Tools → Sandbox Accounts) to pay.
 5. Back in the demo the order turns PAID.
 
-For invoices, tick **Invoicing** under the sandbox app's features. If it is off, the pay link and capture still work and the invoice step is skipped.
+For invoices, tick **Invoicing** under the sandbox app's features. If it is off, the pay link and capture still work and the app issues its own invoice page that shows the PayPal capture ID.
 
 ### Tests
 
